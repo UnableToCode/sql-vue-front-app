@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="title">
-      <h1>Here is web Name</h1>
+      <h1>文献数据库</h1>
     </div>
     <div>
       <el-form :model="loginForm"
@@ -89,33 +89,43 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          try {
-            const response = await fetch('', {
-              method: 'POST',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(this.loginForm)
-            })
-            if (response.ok) {
-              const data = await response.json()
-              if (data.success) {
-                sessionStorage.setItem('loginInfo', this.loginForm.username)
-                this.$router.push('/')
-              } else if (data.error_type === 1) {
-                this.error.username = '用户名不存在'
-              } else if (data.error_type === 2) {
-                this.error.pwd = '密码不正确'
-              } else {
-                console.log('got error error_type')
-              }
-            } else {
-              console.log(response.status)
-            }
-          } catch (error) {
-            console.log(error)
-          }
+          sessionStorage.setItem('loginInfo', this.loginForm.username)
+          sessionStorage.setItem('userLevel', this.loginForm.pwd)
+          sessionStorage.setItem('appliedLevel', 3)
+          this.$router.push('/')
+
+          // try {
+          //   const response = await fetch('localhost:5000/auth/login', {
+          //     method: 'POST',
+          //     headers: {
+          //       'Accept': 'application/json',
+          //       'Content-Type': 'application/json'
+          //     },
+          //     body: JSON.stringify(this.loginForm)
+          //   })
+          //   if (response.ok) {
+          //     const data = await response.json()
+          //     if (data.error === 0) {
+          // sessionStorage.setItem('loginInfo', this.loginForm.username)
+          // sessionStorage.setItem('userlevel', data.level)
+          // sessionStorage.setItem('userID', this.data.userID)
+          //       if (data.level === 0) {
+          //         sessionStorage.setItem('appliedLevel', data.applied_level)
+          //       }
+          //       this.$router.push('/')
+          //     } else if (data.error === 1) {
+          //       this.error.username = '用户名不存在'
+          //     } else if (data.error === 2) {
+          //       this.error.pwd = '密码不正确'
+          //     } else {
+          //       console.log('got error error_type')
+          //     }
+          //   } else {
+          //     console.log(response.status)
+          //   }
+          // } catch (error) {
+          //   console.log(error)
+          // }
         } else {
           console.log('error submit!')
           return false

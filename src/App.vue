@@ -1,27 +1,31 @@
 <template>
   <div id="app">
-    <el-container v-if="$route.meta.keepalive">
-      <el-header class="header">
+
+    <!-- 其他页 -->
+    <el-container v-if="$route.meta.keepAlive">
+      <el-header>
         <keep-alive>
+          <!-- 导航栏 -->
           <v_Header></v_Header>
         </keep-alive>
       </el-header>
       <el-container>
-        <el-aside style="width:200px; height:600px">
+        <el-aside width="200px">
+          <!-- 侧边栏 -->
           <keep-alive>
             <v_leftmenu></v_leftmenu>
           </keep-alive>
         </el-aside>
-        <el-container>
-          <el-main>
-            <keep-alive>
-              <router-view></router-view>
-            </keep-alive>
-          </el-main>
-        </el-container>
+        <el-main>
+          <!-- Body -->
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
-    <router-view v-if="!$route.meta.keepalive"></router-view>
+
+    <!-- 登录页 -->
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
+
   </div>
 </template>
 

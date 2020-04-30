@@ -3,6 +3,12 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Regist from '@/components/Regist'
+import Search from '@/components/Search'
+import Upload from '@/components/Upload'
+import NewUpload from '@/components/NewUpload'
+import Check from '@/components/Check'
+import Preview from '@/components/Preview'
+import UserManage from '@/components/UserManage'
 
 Vue.use(Router)
 
@@ -11,10 +17,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
+      name: 'home',
       component: Home,
       meta: {
-        keepalive: true,
+        keepAlive: true,
         requireLogin: true
       }
     },
@@ -23,7 +29,7 @@ export default new Router({
       name: 'login',
       component: Login,
       meta: {
-        keepalive: false,
+        keepAlive: false,
         requireLogin: false
       }
     },
@@ -32,16 +38,61 @@ export default new Router({
       name: 'regist',
       component: Regist,
       meta: {
-        keepalive: false,
+        keepAlive: false,
         requireLogin: false
       }
     },
     {
-      path: '/home',
-      name: 'home',
-      component: Home,
+      path: '/search',
+      name: 'search',
+      component: Search,
       meta: {
-        keepalive: true,
+        keepAlive: true,
+        requireLogin: true
+      }
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: Upload,
+      meta: {
+        keepAlive: true,
+        requireLogin: true
+      }
+    },
+    {
+      path: '/newUpload',
+      name: 'newUpload',
+      component: NewUpload,
+      meta: {
+        keepAlive: true,
+        requireLogin: true
+      }
+    },
+    {
+      path: '/check',
+      name: 'Check',
+      component: Check,
+      meta: {
+        keepAlive: true,
+        requireLogin: true
+      }
+    },
+    {
+      path: '/preview',
+      name: 'Preview',
+      component: Preview,
+      meta: {
+        keepAlive: true,
+        requireLogin: true
+      }
+    },
+    {
+      path: '/userManage',
+      name: 'UserManage',
+      component: UserManage,
+      meta: {
+        keepAlive: true,
         requireLogin: true
       }
     }

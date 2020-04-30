@@ -14,8 +14,10 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage"
   },
   "dependencies": {
+    "@babel/runtime": "^7.9.2",
     "element-ui": "^2.4.5",
     "vue": "^2.5.2",
+    "vue-pdf": "^4.0.8",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

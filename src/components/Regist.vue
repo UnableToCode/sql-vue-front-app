@@ -47,11 +47,11 @@
                          class="input_style">
                 <el-option label="普通用户"
                            value="1"></el-option>
-                <el-option label="上传用户"
+                <el-option label="组员用户"
                            value="2"></el-option>
-                <el-option label="审核用户"
+                <el-option label="组长用户"
                            value="3"></el-option>
-                <el-option label="超级用户"
+                <el-option label="首席专家"
                            value="4"></el-option>
               </el-select>
             </el-form-item>
@@ -62,7 +62,7 @@
                        class="regist_button_style"
                        style="background-color: #009688">确认</el-button>
             <el-button type="primary"
-                       @click="cancel"
+                       @click="$router.push('/login')"
                        class="regist_button_style"
                        style="background-color: #9D9D9D">取消</el-button>
           </tr>
@@ -119,7 +119,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
-            const response = await fetch('', {
+            const response = await fetch('localhost:5000/auth/register', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -129,11 +129,10 @@ export default {
             })
             if (response.ok) {
               const data = await response.json()
-              if (data.success) {
-                sessionStorage.setItem('loginInfo', this.registerForm.username)
+              if (data.error === 0) {
                 alert('注册成功！')
-                this.$router.push('/')
-              } else if (data.error_type === 1) {
+                this.$router.push('/login')
+              } else if (data.error === 1) {
                 this.error.username = '用户名已存在'
               } else {
                 console.log('got error error_type')
@@ -149,11 +148,11 @@ export default {
           return false
         }
       })
-    },
-
-    cancel() {
-      this.$router.push('/login')
     }
+
+    // cancel() {
+    //   this.$router.push('/login')
+    // }
   }
 
 }
