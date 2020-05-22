@@ -28,7 +28,7 @@
                        label="用户名"
                        width="300px">
       </el-table-column>
-      <el-table-column prop="userType"
+      <el-table-column prop="level"
                        label="用户等级"
                        width="200px">
       </el-table-column>

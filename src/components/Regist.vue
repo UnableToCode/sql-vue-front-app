@@ -41,9 +41,9 @@
             </el-form-item>
           </tr>
           <tr>
-            <el-form-item prop="userType">
+            <el-form-item prop="level">
               <el-select placeholder="选择用户类型"
-                         v-model="registerForm.userType"
+                         v-model="registerForm.level"
                          class="input_style">
                 <el-option label="普通用户"
                            value="1"></el-option>
@@ -90,7 +90,7 @@ export default {
         username: '',
         pwd: '',
         cpwd: '',
-        userType: ''
+        level: ''
       },
       registerRule: {
         username: [
@@ -102,7 +102,7 @@ export default {
         cpwd: [
           { validator: validatePass2, trigger: 'blur' }
         ],
-        userType: [
+        level: [
           { required: true, message: '请选择用户类型', trigger: 'blur' }
         ]
       },
@@ -110,7 +110,7 @@ export default {
         username: '',
         newPwd: '',
         cpwd: '',
-        userType: ''
+        level: ''
       }
     }
   },

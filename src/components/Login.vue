@@ -107,9 +107,9 @@ export default {
               const data = await response.json()
               if (data.error === 0) {
                 sessionStorage.setItem('loginInfo', this.loginForm.username)
-                sessionStorage.setItem('userType', data.userType)
+                sessionStorage.setItem('userLevel', data.level)
                 sessionStorage.setItem('userID', this.data.userID)
-                if (data.userType === 0) {
+                if (data.level === 0) {
                   sessionStorage.setItem('appliedLevel', data.applied_level)
                 }
                 this.$router.push('/')
