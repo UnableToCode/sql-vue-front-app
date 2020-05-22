@@ -16,7 +16,7 @@
                           onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"
                           v-model="loginForm.username"
                           clearable
-                          class="input_style"></el-input>
+                          class="login_input_style"></el-input>
               </el-form-item>
               <div>
                 <span v-if="error.username"
@@ -32,7 +32,7 @@
                           onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"
                           v-model="loginForm.pwd"
                           show-password
-                          class="input_style"></el-input>
+                          class="login_input_style"></el-input>
               </el-form-item>
               <div>
                 <span v-if="error.pwd"
@@ -89,43 +89,43 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          sessionStorage.setItem('loginInfo', this.loginForm.username)
-          sessionStorage.setItem('userLevel', this.loginForm.pwd)
-          sessionStorage.setItem('appliedLevel', 3)
-          this.$router.push('/')
-
-          // try {
-          //   const response = await fetch('localhost:5000/auth/login', {
-          //     method: 'POST',
-          //     headers: {
-          //       'Accept': 'application/json',
-          //       'Content-Type': 'application/json'
-          //     },
-          //     body: JSON.stringify(this.loginForm)
-          //   })
-          //   if (response.ok) {
-          //     const data = await response.json()
-          //     if (data.error === 0) {
           // sessionStorage.setItem('loginInfo', this.loginForm.username)
-          // sessionStorage.setItem('userlevel', data.level)
-          // sessionStorage.setItem('userID', this.data.userID)
-          //       if (data.level === 0) {
-          //         sessionStorage.setItem('appliedLevel', data.applied_level)
-          //       }
-          //       this.$router.push('/')
-          //     } else if (data.error === 1) {
-          //       this.error.username = '用户名不存在'
-          //     } else if (data.error === 2) {
-          //       this.error.pwd = '密码不正确'
-          //     } else {
-          //       console.log('got error error_type')
-          //     }
-          //   } else {
-          //     console.log(response.status)
-          //   }
-          // } catch (error) {
-          //   console.log(error)
-          // }
+          // sessionStorage.setItem('userLevel', this.loginForm.pwd)
+          // sessionStorage.setItem('appliedLevel', 3)
+          // this.$router.push('/')
+
+          try {
+            const response = await fetch('localhost:5000/auth/login', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(this.loginForm)
+            })
+            if (response.ok) {
+              const data = await response.json()
+              if (data.error === 0) {
+                sessionStorage.setItem('loginInfo', this.loginForm.username)
+                sessionStorage.setItem('userlevel', data.level)
+                sessionStorage.setItem('userID', this.data.userID)
+                if (data.level === 0) {
+                  sessionStorage.setItem('appliedLevel', data.applied_level)
+                }
+                this.$router.push('/')
+              } else if (data.error === 1) {
+                this.error.username = '用户名不存在'
+              } else if (data.error === 2) {
+                this.error.pwd = '密码不正确'
+              } else {
+                console.log('got error error_type')
+              }
+            } else {
+              console.log(response.status)
+            }
+          } catch (error) {
+            console.log(error)
+          }
         } else {
           console.log('error submit!')
           return false
@@ -156,7 +156,7 @@ export default {
   margin: auto;
 }
 
-.input_style {
+.login_login_input_style {
   background-color: white;
   width: 400px;
   margin-bottom: 10px;

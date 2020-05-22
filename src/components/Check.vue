@@ -96,39 +96,38 @@ export default {
 
     async getDatas() {
       this.tableDatas = []
-      //   try {
-      //     const response = await fetch('localhost:5000/dbop/search', {
-      //       method: 'POST',
-      //       headers: {
-      //         'Accept': 'application/json',
-      //         'Content-Type': 'application/json'
-      //       },
-      //       body: JSON.stringify(this.searchedInfo)
-      //     })
-      //     const data = await response.json()
-      //     this.tableDatas = data.values
-      //     this.totalNum = data.totalNum
-      //     this.totalNum = this.tableDatas.length
-      //     this.currentPage = 1
-      //   } catch (error) {
-      //     console.log(error)
-      //   }
+      try {
+        const response = await fetch('localhost:5000/dbop/check', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+        const data = await response.json()
+        this.tableDatas = data.values
+        this.totalNum = data.totalNum
+        this.totalNum = this.tableDatas.length
+        this.currentPage = 1
+      } catch (error) {
+        console.log(error)
+      }
 
       // test code
-      this.totalNum = 100000
-      for (var i = 0; i < this.totalNum; i++) {
-        this.tableDatas.push({
-          id: 'id' + i,
-          name: 'name' + i,
-          uploading_date: 'uploading_date' + i,
-          author: 'author' + i,
-          original: 'original' + i,
-          corpus: 'corpus' + i,
-          pass: '',
-          comments: ''
-        })
-      }
-      this.currentPage = 1
+      // this.totalNum = 100000
+      // for (var i = 0; i < this.totalNum; i++) {
+      //   this.tableDatas.push({
+      //     id: 'id' + i,
+      //     name: 'name' + i,
+      //     uploading_date: 'uploading_date' + i,
+      //     author: 'author' + i,
+      //     original: 'original' + i,
+      //     corpus: 'corpus' + i,
+      //     pass: '',
+      //     comments: ''
+      //   })
+      // }
+      // this.currentPage = 1
     },
 
     commitCheck() {

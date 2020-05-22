@@ -83,6 +83,7 @@ export default {
   },
 
   mounted() {
+    this.searchInfo.userID = sessionStorage.getItem('userID')
     this.searchInfo.status = '1'
     this.search()
   },
@@ -90,37 +91,37 @@ export default {
   methods: {
     async search() {
       this.tableDatas = []
-      //   try {
-      //     const response = await fetch('localhost:5000/dbop/uploadSearch', {
-      //       method: 'POST',
-      //       headers: {
-      //         'Accept': 'application/json',
-      //         'Content-Type': 'application/json'
-      //       },
-      //       body: JSON.stringify(this.searchInfo)
-      //     })
-      //     const data = await response.json()
-      //     this.tableDatas = data.values
-      //     this.totalNum = this.tableDatas.length
-      //     this.totalNum = data.totalNum
-      //     this.currentPage = 1
-      //   } catch (error) {
-      //     console.log(error)
-      //   }
-      this.totalNum = 1000
-      for (var i = 0; i < this.totalNum; i++) {
-        this.tableDatas.push({
-          name: '文献名' + i,
-          uploading_date: 'uploading_date' + i,
-          author: 'author' + i,
-          original: 'original' + i,
-          corpus: 'corpus' + i,
-          checker: 'checker' + i,
-          pass: this.searchInfo.status,
-          comments: 'comments' + i
+      try {
+        const response = await fetch('localhost:5000/dbop/upload', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.searchInfo)
         })
+        const data = await response.json()
+        this.tableDatas = data.values
+        this.totalNum = this.tableDatas.length()
+        this.currentPage = 1
+      } catch (error) {
+        console.log(error)
       }
-      this.currentPage = 1
+
+      // this.totalNum = 1000
+      // for (var i = 0; i < this.totalNum; i++) {
+      //   this.tableDatas.push({
+      //     name: '文献名' + i,
+      //     uploading_date: 'uploading_date' + i,
+      //     author: 'author' + i,
+      //     original: 'original' + i,
+      //     corpus: 'corpus' + i,
+      //     checker: 'checker' + i,
+      //     pass: this.searchInfo.status,
+      //     comments: 'comments' + i
+      //   })
+      // }
+      // this.currentPage = 1
     },
 
     tableRowClassName({ row, rowIndex }) {

@@ -85,36 +85,34 @@ export default {
 
     async getDatas() {
       this.tableDatas = []
-      //   try {
-      //     const response = await fetch('localhost:5000/dbop/search', {
-      //       method: 'POST',
-      //       headers: {
-      //         'Accept': 'application/json',
-      //         'Content-Type': 'application/json'
-      //       },
-      //       body: JSON.stringify(this.searchedInfo)
-      //     })
-      //     const data = await response.json()
-      //     this.tableDatas = data.values
-      //     this.totalNum = data.totalNum
-      //     this.totalNum = this.tableDatas.length
-      //     this.currentPage = 1
-      //   } catch (error) {
-      //     console.log(error)
-      //   }
+      try {
+        const response = await fetch('localhost:5000/dbop/authority', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+        const data = await response.json()
+        this.tableDatas = data.values
+        this.totalNum = this.tableDatas.length()
+        this.currentPage = 1
+      } catch (error) {
+        console.log(error)
+      }
 
       // test code
-      this.totalNum = 100
-      for (var i = 0; i < this.totalNum; i++) {
-        this.tableDatas.push({
-          userId: 'id' + i,
-          username: 'username' + i,
-          level: i % 6,
-          appliedLevel: i % 6 + 1,
-          pass: ''
-        })
-      }
-      this.currentPage = 1
+      // this.totalNum = 100
+      // for (var i = 0; i < this.totalNum; i++) {
+      //   this.tableDatas.push({
+      //     userId: 'id' + i,
+      //     username: 'username' + i,
+      //     level: i % 6,
+      //     appliedLevel: i % 6 + 1,
+      //     pass: ''
+      //   })
+      // }
+      // this.currentPage = 1
     },
 
     commitCheck() {
