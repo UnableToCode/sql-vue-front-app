@@ -17,6 +17,10 @@
       <el-table-column type="selection"
                        width="55">
       </el-table-column>
+      <el-table-column prop="id"
+                       label="ID"
+                       width="300px">
+      </el-table-column>
       <el-table-column prop="name"
                        label="文献标题"
                        width="300px">
@@ -98,7 +102,7 @@ export default {
       this.tableDatas = []
       try {
         const response = await fetch('localhost:5000/dbop/check', {
-          method: 'PUT',
+          method: 'GET',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -106,8 +110,7 @@ export default {
         })
         const data = await response.json()
         this.tableDatas = data.values
-        this.totalNum = data.totalNum
-        this.totalNum = this.tableDatas.length
+        this.totalNum = this.tableDatas.length()
         this.currentPage = 1
       } catch (error) {
         console.log(error)
@@ -130,15 +133,40 @@ export default {
       // this.currentPage = 1
     },
 
-    commitCheck() {
+    async commitCheck() {
       if (this.multipleSelection.length === 0) {
         this.$message.warning('请选择要提交审核结果的条目')
       } else {
         this.multipleSelection.forEach(row => {
           if (row.pass === '') {
             this.$message.warning('请为所有要提交的条目选择审核状态')
+            return false
           }
         })
+        try {
+          const response = await fetch('localhost:5000/dbop/check', {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.multipleSelection)
+          })
+          const data = await response.json()
+          if (data.error === 0) {
+            this.$message({
+              message: '提交成功',
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: '提交失败',
+              type: 'error'
+            })
+          }
+        } catch (error) {
+          console.log(error)
+        }
       }
     },
 
