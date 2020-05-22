@@ -87,7 +87,7 @@ export default {
       this.tableDatas = []
       try {
         const response = await fetch('localhost:5000/dbop/authority', {
-          method: 'POST',
+          method: 'GET',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

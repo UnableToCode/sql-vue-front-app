@@ -98,7 +98,7 @@ export default {
       this.tableDatas = []
       try {
         const response = await fetch('localhost:5000/dbop/check', {
-          method: 'POST',
+          method: 'PUT',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

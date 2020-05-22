@@ -92,8 +92,8 @@ export default {
     async search() {
       this.tableDatas = []
       try {
-        const response = await fetch('localhost:5000/dbop/upload', {
-          method: 'POST',
+        const response = await fetch('localhost:5000/dbop/uploadSearch', {
+          method: 'GET',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
