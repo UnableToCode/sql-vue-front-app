@@ -11,7 +11,7 @@
               <el-input placeholder="请输入用户名,6-16位,允许输入a-zA-Z,0-9,_"
                         maxlength=16
                         onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"
-                        v-model="registerForm.name"
+                        v-model="registerForm.username"
                         clearable
                         class="input_style"></el-input>
             </el-form-item>
@@ -87,10 +87,7 @@ export default {
     }
     return {
       registerForm: {
-        username: '',
-        pwd: '',
-        cpwd: '',
-        level: ''
+        username: ''
       },
       registerRule: {
         username: [
