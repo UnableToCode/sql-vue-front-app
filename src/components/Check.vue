@@ -150,6 +150,10 @@ export default {
             return false
           }
         })
+        var bodyForm = {
+          userInfo = this.userInfo,
+          checkList = this.multipleSelection
+        }
         try {
           const response = await fetch('localhost:5000/dbop/check', {
             method: 'PUT',
@@ -157,7 +161,7 @@ export default {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.multipleSelection)
+            body: JSON.stringify(bodyForm)
           })
           const data = await response.json()
           if (data.error === 0) {
