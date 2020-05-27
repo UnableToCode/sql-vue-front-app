@@ -73,11 +73,17 @@ export default {
       multipleSelection: [],
       currentPage: 1,
       totalNum: 0,
-      activeIndex: '1'
+      activeIndex: '1',
+      userInfo: {
+        user_id: '',
+        pwd: ''
+      }
     }
   },
 
   created() {
+    this.userInfo.user_id = sessionStorage.getItem('userID')
+    this.userInfo.pwd = sessionStorage.getItem('passwd')
     this.getDatas()
   },
 
@@ -86,12 +92,13 @@ export default {
     async getDatas() {
       this.tableDatas = []
       try {
-        const response = await fetch('localhost:5000/dbop/authority', {
+        const response = await fetch('http://localhost:5000/dbop/authority', {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify(this.userInfo)
         })
         const data = await response.json()
         this.tableDatas = data.values

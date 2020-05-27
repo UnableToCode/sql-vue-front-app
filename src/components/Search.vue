@@ -149,6 +149,8 @@ export default {
       currentPage: 1,
       totalNum: 0,
       searchedInfo: {
+        user_id: '',
+        pwd: '',
         name: '',
         uploading_date: '',
         author: '',
@@ -165,8 +167,10 @@ export default {
 
     async search() {
       this.tableDatas = []
+      this.searchedInfo.user_id = sessionStorage.getItem('userID')
+      this.searchedInfo.pwd = sessionStorage.getItem('passwd')
       try {
-        const response = await fetch('localhost:5000/dbop/search', {
+        const response = await fetch('http://localhost:5000/dbop/search', {
           method: 'GET',
           headers: {
             'Accept': 'application/json',

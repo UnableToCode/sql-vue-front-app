@@ -76,14 +76,16 @@ export default {
       totalNum: 0,
       tableDatas: [],
       searchInfo: {
-        userID: '',
+        user_id: '',
+        pwd: '',
         status: ''
       }
     }
   },
 
   mounted() {
-    this.searchInfo.userID = sessionStorage.getItem('userID')
+    this.searchInfo.user_id = sessionStorage.getItem('userID')
+    this.searchInfo.pwd = sessionStorage.getItem('passwd')
     this.searchInfo.status = '1'
     this.search()
   },
@@ -92,7 +94,7 @@ export default {
     async search() {
       this.tableDatas = []
       try {
-        const response = await fetch('localhost:5000/dbop/uploadSearch', {
+        const response = await fetch('http://localhost:5000/dbop/uploadSearch', {
           method: 'GET',
           headers: {
             'Accept': 'application/json',

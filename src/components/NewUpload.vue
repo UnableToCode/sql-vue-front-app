@@ -5,7 +5,7 @@
          style="margin-left:50px">
       <el-upload class="upload"
                  ref="upload"
-                 action="loaclhost:5000/dbop/upload"
+                 action="no"
                  accept=".zip,.rar,.ZIP,.RAR"
                  limit="1"
                  :on-remove="handleRemove"
@@ -13,6 +13,7 @@
                  :on-exceed="handleExceed"
                  :on-success="handleSuccess"
                  :file-list="fileList"
+                 :http-request="uploadOk"
                  :auto-upload="false">
         <el-button slot="trigger"
                    size="small"
@@ -65,6 +66,24 @@ export default {
         this.btnUploadEnable = true
       } else {
         this.btnUploadEnable = false
+      }
+    },
+    uploadOk(val) {
+      let fd = new FormData()
+      fd.append('user_id', sessionStorage.getItem('userID'))
+      fd.append('pwd', sessionStorage.getItem('passwd'))
+      fd.append('file', val.file)
+      try {
+        fetch('http://loaclhost:5000/dbop/upload', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          data: fd
+        })
+      } catch (error) {
+        console.log(error)
       }
     }
   }

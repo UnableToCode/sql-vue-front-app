@@ -20,8 +20,8 @@
           <tr>
             <td align="right">新密码：</td>
             <td align="left">
-              <el-form-item prop="pwd">
-                <el-input v-model="userInfoForm.pwd"
+              <el-form-item prop="new_pwd">
+                <el-input v-model="userInfoForm.new_pwd"
                           clearable
                           show-password
                           class="input_style"></el-input>
@@ -116,8 +116,10 @@ export default {
       editing: false,
       showAppliedLevel: false,
       userInfoForm: {
-        username: '',
+        user_id: '',
         pwd: '',
+        username: '',
+        new_pwd: '',
         chkpwd: '',
         level: 0,
         appliedLevel: 0
@@ -126,7 +128,7 @@ export default {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
-        pwd: [
+        new_pwd: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
         chkpwd: [
@@ -144,6 +146,8 @@ export default {
 
   methods: {
     getUserInfo() {
+      this.userInfoForm.userId = sessionStorage.getItem('userID')
+      this.userInfoForm.pwd = sessionStorage.getItem('passwd')
       this.userInfoForm.username = sessionStorage.getItem('loginInfo')
       this.userInfoForm.level = sessionStorage.getItem('userLevel')
       this.userInfoForm.appliedLevel = sessionStorage.getItem('appliedLevel')
@@ -164,7 +168,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
-            const response = await fetch('', {
+            const response = await fetch('http://localhost:5000/modifyUserInfo', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',

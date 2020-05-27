@@ -87,7 +87,10 @@ export default {
     }
     return {
       registerForm: {
-        username: ''
+        username: '',
+        pwd: '',
+        cpwd: '',
+        level: ''
       },
       registerRule: {
         username: [
@@ -104,10 +107,7 @@ export default {
         ]
       },
       error: {
-        username: '',
-        newPwd: '',
-        cpwd: '',
-        level: ''
+        username: ''
       }
     }
   },
@@ -116,7 +116,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
-            const response = await fetch('localhost:5000/auth/register', {
+            const response = await fetch('http://localhost:5000/auth/register', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
