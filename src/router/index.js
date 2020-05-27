@@ -21,7 +21,7 @@ export default new Router({
       component: Home,
       meta: {
         keepAlive: true,
-        requireLogin: true
+        requireLogin: false
       }
     },
     {

@@ -151,8 +151,8 @@ export default {
           }
         })
         var bodyForm = {
-          userInfo = this.userInfo,
-          checkList = this.multipleSelection
+          userInfo: this.userInfo,
+          checkList: this.multipleSelection
         }
         try {
           const response = await fetch('localhost:5000/dbop/check', {

@@ -4,10 +4,8 @@
     <!-- 其他页 -->
     <el-container v-if="$route.meta.keepAlive">
       <el-header>
-        <keep-alive>
-          <!-- 导航栏 -->
-          <v_Header></v_Header>
-        </keep-alive>
+        <!-- 导航栏 -->
+        <v_Header></v_Header>
       </el-header>
       <el-container>
         <el-aside width="200px">
