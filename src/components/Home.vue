@@ -12,6 +12,8 @@
             <td align="left">
               <el-form-item prop="username">
                 <el-input v-model="userInfoForm.username"
+                          maxlength=16
+                          onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"
                           clearable
                           class="input_style"></el-input>
               </el-form-item>
@@ -22,6 +24,8 @@
             <td align="left">
               <el-form-item prop="pwd">
                 <el-input v-model="userInfoForm.pwd"
+                          maxlength=16
+                          onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"
                           clearable
                           show-password
                           class="input_style"></el-input>
@@ -33,6 +37,8 @@
             <td align="left">
               <el-form-item prop="chkpwd">
                 <el-input v-model="userInfoForm.chkpwd"
+                          maxlength=16
+                          onkeyup="this.value=this.value.replace(/[^\w_]/g,'');"
                           clearable
                           show-password
                           class="input_style"></el-input>
@@ -43,7 +49,7 @@
             <td align="right">用户等级</td>
             <td align="left">
               <el-form-item prop="userLevel">
-                <el-select v-model="userInfoForm.level"
+                <el-select v-model="userInfoForm.appliedLevel"
                            class="input_style">
                   <el-option label="普通用户"
                              value="1"></el-option>
@@ -122,16 +128,14 @@ export default {
       },
       userInfoRule: {
         username: [
-          { message: '请输入用户名', trigger: 'blur' }
+          { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
         ],
         pwd: [
-          { message: '请输入密码', trigger: 'blur' }
+          { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
         ],
         chkpwd: [
-          { validator: validatePass2, trigger: 'blur' }
-        ],
-        userType: [
-          { message: '请选择用户类型', trigger: 'blur' }
+          { validator: validatePass2, trigger: 'blur' },
+          { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
         ]
       }
     }
@@ -177,10 +181,11 @@ export default {
                 sessionStorage.setItem('loginInfo', this.userInfoForm.username)
                 if (this.userInfoForm.level !== this.cachedInfo.level) {
                   sessionStorage.setItem('userLevel', 0)
-                  sessionStorage.setItem('appliedLevel', this.userInfoForm.level)
-                  this.userInfoForm.appliedLevel = this.userInfoForm.level
+                  sessionStorage.setItem('appliedLevel', this.userInfoForm.appliedLevel)
                   this.userInfoForm.level = 0
                 }
+                this.userInfoForm.pwd = ''
+                this.userInfoForm.chkpwd = ''
                 this.editing = false
               } else if (data.error === 1) {
                 alert('用户名已存在')
