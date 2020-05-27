@@ -12,6 +12,7 @@
             <td align="left">
               <el-form-item prop="username">
                 <el-input v-model="userInfoForm.username"
+                          maxlength=16
                           clearable
                           class="input_style"></el-input>
               </el-form-item>
@@ -20,8 +21,9 @@
           <tr>
             <td align="right">新密码：</td>
             <td align="left">
-              <el-form-item prop="pwd">
-                <el-input v-model="userInfoForm.pwd"
+              <el-form-item prop="new_pwd">
+                <el-input v-model="userInfoForm.new_pwd"
+                          maxlength=16
                           clearable
                           show-password
                           class="input_style"></el-input>
@@ -33,6 +35,7 @@
             <td align="left">
               <el-form-item prop="chkpwd">
                 <el-input v-model="userInfoForm.chkpwd"
+                          maxlength=16
                           clearable
                           show-password
                           class="input_style"></el-input>
@@ -43,7 +46,7 @@
             <td align="right">用户等级</td>
             <td align="left">
               <el-form-item prop="userLevel">
-                <el-select v-model="userInfoForm.level"
+                <el-select v-model="userInfoForm.appliedLevel"
                            class="input_style">
                   <el-option label="普通用户"
                              value="1"></el-option>
@@ -114,21 +117,26 @@ export default {
       editing: false,
       showAppliedLevel: false,
       userInfoForm: {
-        username: '',
+        user_id: '',
         pwd: '',
+        username: '',
+        new_pwd: '',
         chkpwd: '',
         level: 0,
         appliedLevel: 0
       },
       userInfoRule: {
         username: [
-          { message: '请输入用户名', trigger: 'blur' }
+          { message: '请输入用户名', trigger: 'blur' },
+          { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
         ],
         pwd: [
-          { message: '请输入密码', trigger: 'blur' }
+          { message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
         ],
         chkpwd: [
-          { validator: validatePass2, trigger: 'blur' }
+          { validator: validatePass2, trigger: 'blur' },
+          { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' }
         ],
         userType: [
           { message: '请选择用户类型', trigger: 'blur' }
@@ -142,9 +150,15 @@ export default {
 
   methods: {
     getUserInfo() {
+      this.userInfoForm.userId = sessionStorage.getItem('userID')
+      this.userInfoForm.pwd = sessionStorage.getItem('passwd')
       this.userInfoForm.username = sessionStorage.getItem('loginInfo')
       this.userInfoForm.level = sessionStorage.getItem('userLevel')
-      this.userInfoForm.appliedLevel = sessionStorage.getItem('appliedLevel')
+      if (this.userInfoForm.level === 0) {
+        this.userInfoForm.appliedLevel = sessionStorage.getItem('appliedLevel')
+      } else {
+        this.userInfoForm.appliedLevel = this.userInfoForm.level
+      }
       if (this.userInfoForm.level === '0') {
         console.log('showAppliedLevel')
         this.showAppliedLevel = true
@@ -177,11 +191,12 @@ export default {
                 sessionStorage.setItem('loginInfo', this.userInfoForm.username)
                 if (this.userInfoForm.level !== this.cachedInfo.level) {
                   sessionStorage.setItem('userLevel', 0)
-                  sessionStorage.setItem('appliedLevel', this.userInfoForm.level)
-                  this.userInfoForm.appliedLevel = this.userInfoForm.level
+                  sessionStorage.setItem('appliedLevel', this.userInfoForm.appliedLevel)
                   this.userInfoForm.level = 0
                 }
                 this.editing = false
+                this.userInfoForm.new_pwd = ''
+                this.userInfoForm.chkpwd = ''
               } else if (data.error === 1) {
                 alert('用户名已存在')
               } else {
