@@ -166,7 +166,7 @@ export default {
     async search() {
       this.tableDatas = []
       try {
-        const response = await fetch('localhost:5000/dbop/search', {
+        const response = await fetch('http://localhost:5000/dbop/search', {
           method: 'GET',
           headers: {
             'Accept': 'application/json',

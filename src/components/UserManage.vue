@@ -86,7 +86,7 @@ export default {
     async getDatas() {
       this.tableDatas = []
       try {
-        const response = await fetch('localhost:5000/dbop/authority', {
+        const response = await fetch('http://localhost:5000/dbop/authority', {
           method: 'GET',
           headers: {
             'Accept': 'application/json',

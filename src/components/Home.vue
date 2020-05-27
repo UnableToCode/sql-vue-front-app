@@ -164,8 +164,9 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
-            const response = await fetch('', {
-              method: 'POST',
+            const response = await fetch('http://localhost:5000/dbop/modifyUserInfo', {
+              method: 'PUT',
+              credentials: 'include',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -95,8 +95,9 @@ export default {
           // this.$router.push('/')
 
           try {
-            const response = await fetch('localhost:5000/auth/login', {
+            const response = await fetch('http://localhost:5000/auth/login', {
               method: 'POST',
+              credentials: 'include',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -108,7 +109,7 @@ export default {
               if (data.error === 0) {
                 sessionStorage.setItem('loginInfo', this.loginForm.username)
                 sessionStorage.setItem('userLevel', data.level)
-                sessionStorage.setItem('userID', this.data.userID)
+                sessionStorage.setItem('userID', data.userID)
                 if (data.level === 0) {
                   sessionStorage.setItem('appliedLevel', data.applied_level)
                 }

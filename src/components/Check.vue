@@ -101,7 +101,7 @@ export default {
     async getDatas() {
       this.tableDatas = []
       try {
-        const response = await fetch('localhost:5000/dbop/check', {
+        const response = await fetch('http://localhost:5000/dbop/check', {
           method: 'GET',
           headers: {
             'Accept': 'application/json',
@@ -144,7 +144,7 @@ export default {
           }
         })
         try {
-          const response = await fetch('localhost:5000/dbop/check', {
+          const response = await fetch('http://localhost:5000/dbop/check', {
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
