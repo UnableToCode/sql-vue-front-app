@@ -103,9 +103,7 @@
 export default {
   data() {
     var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'))
-      } else if (value !== this.userInfoForm.pwd) {
+      if (value !== this.userInfoForm.pwd) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -124,16 +122,16 @@ export default {
       },
       userInfoRule: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
+          { message: '请输入用户名', trigger: 'blur' }
         ],
         pwd: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
+          { message: '请输入密码', trigger: 'blur' }
         ],
         chkpwd: [
           { validator: validatePass2, trigger: 'blur' }
         ],
         userType: [
-          { required: true, message: '请选择用户类型', trigger: 'blur' }
+          { message: '请选择用户类型', trigger: 'blur' }
         ]
       }
     }
