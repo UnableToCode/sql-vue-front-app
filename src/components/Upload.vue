@@ -99,7 +99,7 @@ export default {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(this.searchInfo)
+          data: JSON.stringify(this.searchInfo)
         })
         const data = await response.json()
         this.tableDatas = data.values
