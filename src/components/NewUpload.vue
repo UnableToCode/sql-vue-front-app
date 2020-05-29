@@ -5,7 +5,7 @@
          style="margin-left:50px">
       <el-upload class="upload"
                  ref="upload"
-                 action="loaclhost:5000/dbop/upload"
+                 action="http://localhost:5000/dbop/upload"
                  accept=".zip,.rar,.ZIP,.RAR"
                  limit="1"
                  :on-remove="handleRemove"
@@ -13,6 +13,7 @@
                  :on-exceed="handleExceed"
                  :on-success="handleSuccess"
                  :file-list="fileList"
+                 :with-credentials='true'
                  :auto-upload="false">
         <el-button slot="trigger"
                    size="small"
