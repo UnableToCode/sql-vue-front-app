@@ -19,11 +19,11 @@
               class="search_table"
               :data="tableDatas.slice((currentPage-1)*20,currentPage*20)"
               :row-class-name="tableRowClassName">
-      <el-table-column prop="name"
+      <el-table-column prop="title"
                        label="文献标题"
                        width="300px">
       </el-table-column>
-      <el-table-column prop="uploading_date"
+      <el-table-column prop="date"
                        label="上传日期"
                        width="200px">
       </el-table-column>
@@ -31,7 +31,7 @@
                        label="作者"
                        width="200px">
       </el-table-column>
-      <el-table-column prop="original"
+      <el-table-column prop="source"
                        label="原载出处"
                        width="200px">
       </el-table-column>
@@ -39,7 +39,7 @@
                        label="审核人"
                        width="200px">
       </el-table-column>
-      <el-table-column prop="pass"
+      <el-table-column prop="checked"
                        label="审核结果"
                        width="200px">
         <template slot-scope="scope">
@@ -92,14 +92,13 @@ export default {
     async search() {
       this.tableDatas = []
       try {
-        const response = await fetch('http://localhost:5000/dbop/upload', {
+        const response = await fetch('http://localhost:5000/dbop/upload?status=' + this.searchInfo.status, {
           method: 'GET',
           credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(this.searchInfo)
+          }
         })
         const data = await response.json()
         this.tableDatas = data.values
