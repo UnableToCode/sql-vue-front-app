@@ -87,7 +87,9 @@ export default {
     }
     return {
       registerForm: {
-        username: ''
+        username: '',
+        pwd: '',
+        level: ''
       },
       registerRule: {
         username: [
@@ -107,10 +109,7 @@ export default {
         ]
       },
       error: {
-        username: '',
-        newPwd: '',
-        cpwd: '',
-        level: ''
+        username: ''
       }
     }
   },

@@ -98,7 +98,12 @@ export default {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
+<<<<<<< HEAD
           }
+=======
+          },
+          data: JSON.stringify(this.searchInfo)
+>>>>>>> 1d87a775261963d802714abfb4e738a940a0830f
         })
         const data = await response.json()
         this.tableDatas = data.values
