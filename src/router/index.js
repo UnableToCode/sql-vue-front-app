@@ -57,7 +57,7 @@ export default new Router({
       component: Upload,
       meta: {
         keepAlive: true,
-        requireLogin: true
+        requireLogin: false
       }
     },
     {

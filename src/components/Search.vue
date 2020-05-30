@@ -167,7 +167,7 @@ export default {
       this.tableDatas = []
       try {
         const response = await fetch('http://localhost:5000/dbop/search', {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -199,16 +199,28 @@ export default {
       // this.currentPage = 1
     },
 
-    download() {
+    async download() {
       if (this.tableDatas.length === 0) {
         alert('无检索结果')
+      }
+      try {
+        await fetch('http://localhost:5000/dbop/download', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.searchedInfo)
+        })
+      } catch (error) {
+        console.log(error)
       }
     },
 
     preview(row) {
-      // var idx = this.currentPage * 20 + row
-      // var pdfUrl = this.tableDatas[idx].pdfUrl
-      var pdfUrl = 'https://mail.qq.com/cgi-bin/download?mailid=ZL1123-QLN~QsHDRGDBOAFf3cGjSa4&filename=171860627+%C2%ED%E7%F1%BE%FE.pdf&sid=Dv2fNLcB6s5ncksV'
+      var idx = this.currentPage * 20 + row
+      var pdfUrl = this.tableDatas[idx].pdfUrl
+      // var pdfUrl = 'https://mail.qq.com/cgi-bin/download?mailid=ZL1123-QLN~QsHDRGDBOAFf3cGjSa4&filename=171860627+%C2%ED%E7%F1%BE%FE.pdf&sid=Dv2fNLcB6s5ncksV'
       this.$router.push({
         name: 'Preview',
         params: {
