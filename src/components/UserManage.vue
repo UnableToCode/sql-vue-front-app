@@ -1,6 +1,31 @@
 <template>
   <div class='search_page'>
     <h3 class='page_title'>用户管理</h3>
+    <el-upload class="upload"
+               ref="upload"
+               action="http://localhost:5000/dbop/UserImport"
+               accept=".xls,.csv,.XLS,.CSV"
+               limit="1"
+               :on-remove="handleRemove"
+               :on-change="handleChange"
+               :on-exceed="handleExceed"
+               :on-success="handleSuccess"
+               :file-list="fileList"
+               :with-credentials='true'
+               :auto-upload="false">
+      <el-button slot="trigger"
+                 size="small"
+                 type="primary"
+                 icon="el-icon-document"
+                 :disabled="btnUploadEnable">导入用户文件</el-button>
+      <el-button style="margin-left: 10px;"
+                 size="small"
+                 type="success"
+                 icon="el-icon-upload"
+                 @click="submitUpload">上传到服务器</el-button>
+      <div slot="tip"
+           class="el-upload__tip">只能上传xls/csv文件, 且只能上传一个文件</div>
+    </el-upload>
     <el-menu :default-active="activeIndex"
              mode="horizontal"
              @select="handleSelect">
@@ -69,6 +94,8 @@ export default {
   name: 'search_table',
   data() {
     return {
+      btnUploadEnable: false,
+      fileList: [],
       tableDatas: [],
       multipleSelection: [],
       currentPage: 1,
@@ -82,7 +109,6 @@ export default {
   },
 
   methods: {
-
     async getDatas() {
       this.tableDatas = []
       try {
@@ -100,7 +126,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-
       // test code
       // this.totalNum = 100
       // for (var i = 0; i < this.totalNum; i++) {
@@ -114,7 +139,6 @@ export default {
       // }
       // this.currentPage = 1
     },
-
     commitCheck() {
       if (this.multipleSelection.length === 0) {
         this.$message.warning('请选择要提交审核结果的条目')
@@ -126,7 +150,6 @@ export default {
         })
       }
     },
-
     preview(row) {
       // var idx = this.currentPage * 20 + row
       // var pdfUrl = this.tableDatas[idx].pdfUrl
@@ -139,21 +162,17 @@ export default {
       }
       )
     },
-
     handleSelect(key, keyPath) {
       this.activeIndex = key
       console.log(key)
       this.getDatas()
     },
-
     handleDetail(index, row) {
       this.preview(index)
     },
-
     handleCurrentChange(val) {
       this.currentPage = val
     },
-
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -163,9 +182,30 @@ export default {
         this.$refs.multipleTable.clearSelection()
       }
     },
-
     handleSelectionChange(val) {
       this.multipleSelection = val
+    },
+    submitUpload() {
+      this.$refs.upload.submit()
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList)
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+    },
+    handleSuccess(response, file, fileList) {
+      this.$message({
+        message: '上传成功',
+        type: 'success'
+      })
+    },
+    handleChange(file, fileList) {
+      if (fileList.length !== 0) {
+        this.btnUploadEnable = true
+      } else {
+        this.btnUploadEnable = false
+      }
     }
   }
 }
