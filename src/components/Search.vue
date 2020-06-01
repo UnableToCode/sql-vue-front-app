@@ -204,7 +204,7 @@ export default {
         alert('无检索结果')
       }
       try {
-        await fetch('http://localhost:5000/dbop/download', {
+        const response = await fetch('http://localhost:5000/dbop/download', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -212,6 +212,18 @@ export default {
           },
           body: JSON.stringify(this.searchedInfo)
         })
+        const conent = response.data
+        const blob = new Blob([conent])
+        console.log(blob)
+        const fileName = '检索结果.txt'
+        const link = document.createElement('a')
+        link.download = fileName // a标签添加属性
+        link.style.display = 'none'
+        link.href = URL.createObjectURL(blob)
+        document.body.appendChild(link)
+        link.click() // 执行下载
+        URL.revokeObjectURL(link.href) // 释放url
+        document.body.removeChild(link)
       } catch (error) {
         console.log(error)
       }
