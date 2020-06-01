@@ -21,11 +21,11 @@
                        label="ID"
                        width="300px">
       </el-table-column>
-      <el-table-column prop="name"
+      <el-table-column prop="title"
                        label="文献标题"
                        width="300px">
       </el-table-column>
-      <el-table-column prop="uploading_date"
+      <el-table-column prop="date"
                        label="上传日期"
                        width="200px">
       </el-table-column>
@@ -33,7 +33,7 @@
                        label="作者"
                        width="200px">
       </el-table-column>
-      <el-table-column prop="original"
+      <el-table-column prop="source"
                        label="原载出处"
                        width="200px">
       </el-table-column>
@@ -103,6 +103,7 @@ export default {
       try {
         const response = await fetch('http://localhost:5000/dbop/check', {
           method: 'GET',
+          credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -146,6 +147,7 @@ export default {
         try {
           const response = await fetch('http://localhost:5000/dbop/check', {
             method: 'PUT',
+            credentials: 'include',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'

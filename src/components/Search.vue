@@ -6,7 +6,7 @@
       <div>
         文献名:
         <el-input placeholder="请输入查询的文献标题"
-                  v-model="searchedInfo.name"
+                  v-model="searchedInfo.title"
                   prefix-icon="el-icon-search"
                   clearable
                   class="search_input_style">
@@ -21,7 +21,7 @@
               <el-col :span="8">
                 <el-date-picker type="date"
                                 value-format="yyyy-MM-dd"
-                                v-model="searchedInfo.uploading_date"
+                                v-model="searchedInfo.date"
                                 placeholder="选择查询的文献上传日期"
                                 class="search_input_style">
                 </el-date-picker>
@@ -46,7 +46,7 @@
               </el-col>
               <el-col :span="8">
                 <el-input placeholder="请输入查询的文献原载出处"
-                          v-model="searchedInfo.original"
+                          v-model="searchedInfo.source"
                           prefix-icon="el-icon-search"
                           clearable
                           class="search_input_style">
@@ -93,11 +93,11 @@
                 @row-click="preview"
                 :data="tableDatas.slice((currentPage-1)*20,currentPage*20)"
                 :row-class-name="tableRowClassName">
-        <el-table-column prop="name"
+        <el-table-column prop="title"
                          label="文献标题"
                          width="300px">
         </el-table-column>
-        <el-table-column prop="uploading_date"
+        <el-table-column prop="date"
                          label="上传日期"
                          width="200px">
         </el-table-column>
@@ -105,7 +105,7 @@
                          label="作者"
                          width="200px">
         </el-table-column>
-        <el-table-column prop="original"
+        <el-table-column prop="source"
                          label="原载出处"
                          width="200px">
         </el-table-column>
@@ -149,10 +149,10 @@ export default {
       currentPage: 1,
       totalNum: 0,
       searchedInfo: {
-        name: '',
-        uploading_date: '',
+        title: '',
+        date: '',
         author: '',
-        original: '',
+        source: '',
         corpus: '',
         checker: '',
         pass: '',
@@ -168,6 +168,7 @@ export default {
       try {
         const response = await fetch('http://localhost:5000/dbop/search', {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -189,7 +190,7 @@ export default {
       //     name: 'name' + i,
       //     uploading_date: 'uploading_date' + i,
       //     author: 'author' + i,
-      //     original: 'original' + i,
+      //     source: 'source' + i,
       //     corpus: 'corpus' + i,
       //     checker: 'checker' + i,
       //     pass: i % 3 + 1 + '',
@@ -206,6 +207,7 @@ export default {
       try {
         await fetch('http://localhost:5000/dbop/download', {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
