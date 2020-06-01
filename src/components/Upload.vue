@@ -39,7 +39,7 @@
                        label="审核人"
                        width="200px">
       </el-table-column>
-      <el-table-column prop="checked"
+      <el-table-column prop="pass"
                        label="审核结果"
                        width="200px">
         <template slot-scope="scope">
