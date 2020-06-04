@@ -214,10 +214,10 @@ export default {
           },
           body: JSON.stringify(this.searchedInfo)
         })
-        const conent = response.data
-        const blob = new Blob([conent])
+        const blob = await response.blob()
+        // const blob = new Blob([conent], {type: 'application/vnd.ms-excel'})
         console.log(blob)
-        const fileName = '检索结果.txt'
+        const fileName = '检索结果.xls'
         const link = document.createElement('a')
         link.download = fileName // a标签添加属性
         link.style.display = 'none'
